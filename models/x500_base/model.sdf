@@ -6,9 +6,9 @@
     <static>false</static>
     <link name="base_link">
       <inertial>
-        <mass>3.0</mass>
+        <mass>2.9</mass>
         <inertia>
-          <ixx>0.003960</ixx>
+          <ixx>0.00396</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
           <iyy>0.003845</iyy>
@@ -22,13 +22,13 @@
         <pose>0 0 .025 0 0 3.141592654</pose>
         <geometry>
           <mesh>
-            <scale>1 1 1</scale>
+            <scale>0.60 0.60 1</scale>
             <uri>model://x500_base/meshes/NXP-HGD-CF.dae</uri>
           </mesh>
         </geometry>
       </visual>
       <visual name="5010_motor_base_0">
-        <pose>0.174 0.174 .032 0 0 -.45</pose>
+        <pose>0.105 0.105 -0.032 0 0 -.45</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -37,7 +37,7 @@
         </geometry>
       </visual>
       <visual name="5010_motor_base_1">
-        <pose>-0.174 0.174 .032 0 0 -.45</pose>
+        <pose>-0.105 0.105 -0.032 0 0 -.45</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -46,7 +46,7 @@
         </geometry>
       </visual>
       <visual name="5010_motor_base_2">
-        <pose>0.174 -0.174 .032 0 0 -.45</pose>
+        <pose>0.105 -0.105 -0.032 0 0 -.45</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -55,7 +55,7 @@
         </geometry>
       </visual>
       <visual name="5010_motor_base_3">
-        <pose>-0.174 -0.174 .032 0 0 -.45</pose>
+        <pose>-0.105 -0.105 -0.032 0 0 -.45</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -317,7 +317,7 @@
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay />
-      <pose>0.174 -0.174 0.06 0 0 0</pose>
+      <pose>0.105 -0.105 -0.03 0 0 0</pose>
       <inertial>
         <mass>0.016076923076923075</mass>
         <inertia>
@@ -389,7 +389,7 @@
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay />
-      <pose>-0.174 0.174 0.06 0 0 0</pose>
+      <pose>-0.105 0.105 -0.03 0 0 0</pose>
       <inertial>
         <mass>0.016076923076923075</mass>
         <inertia>
@@ -461,7 +461,7 @@
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay />
-      <pose>0.174 0.174 0.06 0 0 0</pose>
+      <pose>0.105 0.105 -0.03 0 0 0</pose>
       <inertial>
         <mass>0.016076923076923075</mass>
         <inertia>
@@ -533,7 +533,7 @@
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay />
-      <pose>-0.174 -0.174 0.06 0 0 0</pose>
+      <pose>-0.105 -0.105 -0.03 0 0 0</pose>
       <inertial>
         <mass>0.016076923076923075</mass>
         <inertia>
@@ -602,7 +602,7 @@
       </axis>
     </joint>
 
-        <!-- ============================================================ -->
+    <!-- ============================================================ -->
     <!-- Frame Aerodynamics - Custom Cd/Cl lookup table via CSV       -->
     <!--                                                              -->
     <!-- Plugin reads x500_base_aero.csv from the same directory as  -->
@@ -616,49 +616,23 @@
     <!-- ============================================================ -->
 
     <!-- Drag along X axis (forward/backward flight) -->
+
     <plugin
       filename="AeroPlugin"
       name="AeroPlugin">
       <link_name>base_link</link_name>
       <!-- Frontal area: collision box width * height = 0.3536 * 0.05 -->
-      <area>0.0177</area>
+      <area>0.02</area>
       <air_density>1.2041</air_density>
-      <!-- Forward direction in body frame: +X = nose forward -->
-      <forward>1 0 0</forward>
-      <!-- Upward direction in body frame: +Z = up -->
-      <upward>0 0 1</upward>
+      <!-- Forward direction in body frame: +Z = nose forward -->
+      <forward>0 0 1</forward>
+      <!-- Upward direction in body frame: +X = up -->
+      <upward>-1 0 0</upward>
       <!-- Path to aero lookup table CSV (relative to model directory) -->
       <aero_table>model://x500_base/x500_base_aero.csv</aero_table>
     </plugin>
 
-    <!-- Drag along Y axis (lateral / sideways flight) -->
-    <plugin
-      filename="AeroPlugin"
-      name="AeroPlugin">
-      <link_name>base_link</link_name>
-      <!-- Same frontal area as X — frame is symmetric -->
-      <area>0.0177</area>
-      <air_density>1.2041</air_density>
-      <!-- Forward direction in body frame: +Y = starboard -->
-      <forward>0 1 0</forward>
-      <!-- Upward direction in body frame: +Z = up -->
-      <upward>0 0 1</upward>
-      <aero_table>model://x500_base/x500_base_aero.csv</aero_table>
-    </plugin>
-
-    <!-- Drag along Z axis (vertical descent/climb) -->
-    <plugin
-      filename="AeroPlugin"
-      name="AeroPlugin">
-      <link_name>base_link</link_name>
-      <!-- Top-down area: collision box footprint = 0.3536 * 0.3536 -->
-      <area>0.1250</area>
-      <air_density>1.2041</air_density>
-      <!-- Forward direction in body frame: +Z = up/down -->
-      <forward>0 0 1</forward>
-      <!-- Upward direction in body frame: +X for reference plane -->
-      <upward>1 0 0</upward>
-      <aero_table>model://x500_base/x500_base_aero.csv</aero_table>
-    </plugin>
   </model>
 </sdf>
+
+
