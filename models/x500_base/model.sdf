@@ -614,20 +614,12 @@
     <!-- To update aero coefficients, edit x500_base_aero.csv only.  -->
     <!-- CSV format: alpha_rad, Cl, Cd  (header row required)        -->
     <!-- ============================================================ -->
-
-    <!-- Drag along X axis (forward/backward flight) -->
-
     <plugin
       filename="AeroPlugin"
       name="AeroPlugin">
       <link_name>base_link</link_name>
-      <!-- Frontal area: collision box width * height = 0.3536 * 0.05 -->
       <area>0.02</area>
-      <air_density>1.2041</air_density>
-      <!-- Forward direction in body frame: +Z = nose forward -->
-      <forward>0 0 1</forward>
-      <!-- Upward direction in body frame: +X = up -->
-      <upward>-1 0 0</upward>
+      <chord>0.08</chord>
       <!-- Path to aero lookup table CSV (relative to model directory) -->
       <aero_table>model://x500_base/x500_base_aero.csv</aero_table>
     </plugin>

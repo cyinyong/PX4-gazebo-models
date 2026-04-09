@@ -1,4 +1,4 @@
-alpha_rad,Cfx,Cfz, Cmx
+alpha_rad,Cfx,Cfz,Cmx
 # Body frame aerodynamic lookup table
 # alpha_rad 	: angle of attack in radians
 # Cfx        	: force body x coefficient (x is positve forward)
